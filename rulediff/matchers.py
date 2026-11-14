@@ -1,4 +1,4 @@
-"""High-precision matchers: the reliable half of agent-rules.
+"""High-precision matchers: the reliable half of rulediff.
 
 Rule extraction (rules.py) is fuzzy English parsing. *This* file is where
 the honesty lives. Each matcher is a small, hand-built detector for one

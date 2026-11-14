@@ -1,4 +1,4 @@
-"""agent-rules: did your coding agent actually follow its own rules?
+"""rulediff: did your coding agent actually follow its own rules?
 
 Linters check that your CLAUDE.md is well-formed. This checks that your
 agent *obeyed* it. It mines imperative rules from CLAUDE.md / AGENTS.md /
@@ -6,8 +6,8 @@ agent *obeyed* it. It mines imperative rules from CLAUDE.md / AGENTS.md /
 doing the forbidden thing, or skipping the mandated thing.
 
 Usage:
-  agent-rules check <transcript.jsonl | session-id-prefix | latest> [options]
-  agent-rules list [--project NAME] [--limit N]
+  rulediff check <transcript.jsonl | session-id-prefix | latest> [options]
+  rulediff list [--project NAME] [--limit N]
 
 Options:
   --rules FILE          rules file to check against (repeatable; default:
@@ -65,12 +65,12 @@ def _cmd_check(args: argparse.Namespace) -> int:
     try:
         result = check_transcript(args.target, args.rules, args.project)
     except FileNotFoundError as exc:
-        print(f"agent-rules: {exc}", file=sys.stderr)
+        print(f"rulediff: {exc}", file=sys.stderr)
         return 2
 
     cwd = result.session.cwd
     if not args.rules and cwd and is_remote_path(cwd):
-        print("agent-rules: the session's working directory is not a plain "
+        print("rulediff: the session's working directory is not a plain "
               "local path (a network share, for example), so rules files there "
               "were not checked (pass --rules to choose a rules file).",
               file=sys.stderr)
@@ -106,12 +106,12 @@ def _cmd_list(args: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="agent-rules",
+        prog="rulediff",
         description="Check whether your coding agent actually followed its "
                     "CLAUDE.md / AGENTS.md / .cursorrules.",
     )
     parser.add_argument("--version", action="version",
-                        version=f"agent-rules {__version__}")
+                        version=f"rulediff {__version__}")
     sub = parser.add_subparsers(dest="command", required=True)
 
     check = sub.add_parser("check", help="check one session against the rules")
@@ -147,6 +147,12 @@ def main(argv: list[str] | None = None) -> int:
                 pass
     args = build_parser().parse_args(argv)
     return args.func(args)
+
+
+def deprecated_main():
+    """The old `agent-rules` command. Kept for one release, then removed."""
+    print("`agent-rules` is now `rulediff`. The old command goes away in the next release.", file=sys.stderr)
+    return main()
 
 
 if __name__ == "__main__":

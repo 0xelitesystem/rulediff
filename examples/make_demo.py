@@ -5,7 +5,7 @@ Writes:
   examples/demo-session.jsonl - a Claude Code transcript that breaks several
 
 So that:
-  agent-rules check examples/demo-session.jsonl --rules examples/CLAUDE.md
+  rulediff check examples/demo-session.jsonl --rules examples/CLAUDE.md
 shows a satisfyingly red report with high-confidence violations.
 """
 

@@ -75,7 +75,7 @@ def render_terminal(result: ComplianceResult, color: bool | None = None) -> str:
 
     title = _clean(session.slug or Path(session.path).stem[:12])
     out("")
-    out(_paint("  agent-rules", _BOLD, _CYAN, enabled=color)
+    out(_paint("  rulediff", _BOLD, _CYAN, enabled=color)
         + _paint(": did the agent follow the rules?", _DIM, enabled=color))
     out(_paint(f"  session {title} · {len(session.events)} events"
                + (f" · {_clean(session.cwd)}" if session.cwd else ""),
@@ -169,7 +169,7 @@ def render_json(result: ComplianceResult) -> str:
 
 def render_markdown(result: ComplianceResult) -> str:
     lines = [
-        "# agent-rules compliance report",
+        "# rulediff compliance report",
         "",
         f"- **Transcript:** `{Path(result.session.path).name}`",
         f"- **Project:** `{_md_cell(result.session.cwd) or 'unknown'}`",

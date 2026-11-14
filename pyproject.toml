@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "agent-rules"
-version = "0.1.0"
+name = "rulediff"
+version = "0.2.0"
 description = "Check whether your coding agent actually followed its CLAUDE.md / AGENTS.md / .cursorrules."
 readme = "README.md"
 license = "MIT"
@@ -21,11 +21,12 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/0xelitesystem/agent-rules"
-Issues = "https://github.com/0xelitesystem/agent-rules/issues"
+Homepage = "https://github.com/0xelitesystem/rulediff"
+Issues = "https://github.com/0xelitesystem/rulediff/issues"
 
 [project.scripts]
-agent-rules = "agent_rules.cli:main"
+rulediff = "rulediff.cli:main"
+agent-rules = "rulediff.cli:deprecated_main"
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]

@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from agent_rules.checker import check_rule, check_rules
-from agent_rules.models import Confidence, RuleVerdict
-from agent_rules.parser import parse_transcript
-from agent_rules.rules import parse_rules_file, parse_rules_text
+from rulediff.checker import check_rule, check_rules
+from rulediff.models import Confidence, RuleVerdict
+from rulediff.parser import parse_transcript
+from rulediff.rules import parse_rules_file, parse_rules_text
 
 
 def _findings(transcript, rules_file):
@@ -85,7 +85,7 @@ def test_no_rules_apply_session(no_rules_apply_transcript, rules_file):
 def test_generic_fallback_is_low_confidence(tmp_path):
     # A rule with no precise matcher binding; subject 'frobnicate'.
     rules = parse_rules_text("- Never run frobnicate on production.\n")
-    from agent_rules.models import Session, Event, EventKind
+    from rulediff.models import Session, Event, EventKind
     session = Session(path="x", events=[
         Event(kind=EventKind.TOOL_CALL, index=0, tool_name="Bash",
               tool_input={"command": "frobnicate --prod"}),
@@ -97,7 +97,7 @@ def test_generic_fallback_is_low_confidence(tmp_path):
 
 def test_generic_fallback_not_applicable_when_absent():
     rules = parse_rules_text("- Never run frobnicate on production.\n")
-    from agent_rules.models import Session, Event, EventKind
+    from rulediff.models import Session, Event, EventKind
     session = Session(path="x", events=[
         Event(kind=EventKind.TOOL_CALL, index=0, tool_name="Bash",
               tool_input={"command": "git status"}),

@@ -14,9 +14,9 @@ Format notes (observed against Claude Code 2.x transcripts):
 - Other record types (system, attachment, file-history-snapshot, ...)
   are not needed for auditing and are skipped.
 
-This is the same shape agent-receipts parses, so the two tools share
-transcripts: agent-receipts asks "did the agent back up its claims",
-agent-rules asks "did the agent follow the rules".
+This is the same shape donediff parses, so the two tools share
+transcripts: donediff asks "did the agent back up its claims",
+rulediff asks "did the agent follow the rules".
 """
 
 from __future__ import annotations

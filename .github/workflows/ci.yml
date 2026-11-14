@@ -23,5 +23,5 @@ jobs:
       - name: Regenerate demo fixtures
         run: python examples/make_demo.py
       - name: Demo check must find a high-confidence violation and gate
-        run: "! agent-rules check examples/demo-session.jsonl --rules examples/CLAUDE.md --fail-on-violation"
+        run: "! rulediff check examples/demo-session.jsonl --rules examples/CLAUDE.md --fail-on-violation"
         shell: bash

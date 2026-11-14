@@ -1,4 +1,4 @@
-"""Enable `python -m agent_rules`."""
+"""Enable `python -m rulediff`."""
 
 import sys
 

@@ -18,11 +18,11 @@ from pathlib import Path
 
 import pytest
 
-from agent_rules import matchers as M
-from agent_rules.checker import _name_words, _redact_secrets
-from agent_rules.cli import check_transcript, main
-from agent_rules.report import render_json, render_markdown, render_terminal
-from agent_rules.rules import discover_rules_files, is_remote_path
+from rulediff import matchers as M
+from rulediff.checker import _name_words, _redact_secrets
+from rulediff.cli import check_transcript, main
+from rulediff.report import render_json, render_markdown, render_terminal
+from rulediff.rules import discover_rules_files, is_remote_path
 
 ESC = "\x1b"
 # Fullwidth reverse solidus. NFKC folds it to a plain backslash.
@@ -367,7 +367,7 @@ def test_malformed_cwd_is_skipped_without_crashing(tmp_path, capsys, monkeypatch
 def test_discovery_survives_a_malformed_path_past_the_gate(tmp_path, monkeypatch, cwd):
     # Belt and braces: even if a malformed path got past is_remote_path,
     # discovery skips it instead of raising.
-    import agent_rules.rules as rules_module
+    import rulediff.rules as rules_module
     home = tmp_path / "home"
     home.mkdir()
     monkeypatch.setenv("HOME", str(home))

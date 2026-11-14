@@ -1,6 +1,6 @@
 """Fixture transcripts and rules files in Claude Code's JSONL shape.
 
-Shared with agent-receipts' transcript shape, so the helpers look familiar.
+Shared with donediff' transcript shape, so the helpers look familiar.
 A "compliant" session does everything the demo rules require; a "violating"
 session breaks several of them.
 """

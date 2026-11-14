@@ -1,8 +1,10 @@
-# agent-rules
+# rulediff
 
-> Linters check that your `CLAUDE.md` is *well-formed*. **agent-rules checks that your agent actually followed it.**
+> Linters check that your `CLAUDE.md` is *well-formed*. **rulediff checks that your agent actually followed it.**
 
-`agent-rules` reads your `CLAUDE.md` / `AGENTS.md` / `.cursorrules`, extracts the imperative rules (the prohibitions and the mandates), then scans an agent session transcript for the places the agent **broke them**, ran bare `python` when you pinned an interpreter, committed with `--no-verify`, read a `.env`, wrote to the repo root, force-pushed, installed a dependency without asking.
+Formerly agent-rules. The old repository address redirects here. The old `agent-rules` command still works in 0.2.0 with a notice and goes away in the next release; use `rulediff`.
+
+`rulediff` reads your `CLAUDE.md` / `AGENTS.md` / `.cursorrules`, extracts the imperative rules (the prohibitions and the mandates), then scans an agent session transcript for the places the agent **broke them**, ran bare `python` when you pinned an interpreter, committed with `--no-verify`, read a `.env`, wrote to the repo root, force-pushed, installed a dependency without asking.
 
 Zero dependencies. Pure Python stdlib. Runs offline, no API keys, nothing leaves your machine.
 
@@ -15,7 +17,7 @@ There's a whole shelf of `CLAUDE.md` *linters* now, [cclint](https://github.com/
 ## What it catches
 
 ```
-  agent-rules, did the agent follow the rules?
+  rulediff, did the agent follow the rules?
   session demo-session  -  10 events  -  C:\Users\dev\acme-api
 
   COMPLIANCE SCORE  0/100 (F)
@@ -43,13 +45,13 @@ There's a whole shelf of `CLAUDE.md` *linters* now, [cclint](https://github.com/
 That's a real audit of [`examples/demo-session.jsonl`](examples/demo-session.jsonl) against [`examples/CLAUDE.md`](examples/CLAUDE.md). Run it yourself:
 
 ```bash
-agent-rules check examples/demo-session.jsonl --rules examples/CLAUDE.md
+rulediff check examples/demo-session.jsonl --rules examples/CLAUDE.md
 ```
 
 ## Install
 
 ```bash
-pip install git+https://github.com/0xelitesystem/agent-rules
+pip install git+https://github.com/0xelitesystem/rulediff
 ```
 
 Python ≥ 3.10. No dependencies.
@@ -58,24 +60,24 @@ Python ≥ 3.10. No dependencies.
 
 ```bash
 # Check your latest session against the CLAUDE.md it ran under (auto-discovered)
-agent-rules check latest
+rulediff check latest
 
 # Point at a specific session and rules file
-agent-rules check 8dcbd9b2 --rules ./CLAUDE.md
-agent-rules check ~/.claude/projects/<project>/<session>.jsonl
+rulediff check 8dcbd9b2 --rules ./CLAUDE.md
+rulediff check ~/.claude/projects/<project>/<session>.jsonl
 
 # List recent sessions
-agent-rules list
+rulediff list
 
 # JSON / Markdown
-agent-rules check latest --json
-agent-rules check latest --md compliance.md
+rulediff check latest --json
+rulediff check latest --md compliance.md
 
 # CI gate: fail the pipeline on any high-confidence violation
-agent-rules check latest --fail-on-violation
+rulediff check latest --fail-on-violation
 ```
 
-If you don't pass `--rules`, agent-rules looks for `CLAUDE.md` in the session's working directory, then `~/.claude/CLAUDE.md`, then `AGENTS.md` / `.cursorrules`. On Windows, the working directory is opened only when it is a plain local drive path such as `C:\Users\dev\project`; anything else (a network share, a `\\?\`, `\??\` or `\\.\` path, a relative path) is never opened. On other systems, one starting with `\\`, `//`, `\??\` or `/??/` is never opened. Either way it is reported as not checked, so pass `--rules` for those sessions.
+If you don't pass `--rules`, rulediff looks for `CLAUDE.md` in the session's working directory, then `~/.claude/CLAUDE.md`, then `AGENTS.md` / `.cursorrules`. On Windows, the working directory is opened only when it is a plain local drive path such as `C:\Users\dev\project`; anything else (a network share, a `\\?\`, `\??\` or `\\.\` path, a relative path) is never opened. On other systems, one starting with `\\`, `//`, `\??\` or `/??/` is never opened. Either way it is reported as not checked, so pass `--rules` for those sessions.
 
 Reports mask common credential shapes (tokens, keys, passwords, authorization headers), but masking is pattern based: review a report before you share it.
 
@@ -110,10 +112,10 @@ Rules outside this set still get a generic keyword check, surfaced separately as
 
 ## Part of the agent accountability suite
 
-- [agent-receipts](https://github.com/0xelitesystem/agent-receipts), did the agent's claims ("tests pass") match reality?
+- [donediff](https://github.com/0xelitesystem/donediff), did the agent's claims ("tests pass") match reality?
 - [agent-leaks](https://github.com/0xelitesystem/agent-leaks), did it leak secrets into the transcript?
-- [agent-blast-radius](https://github.com/0xelitesystem/agent-blast-radius), what irreversible actions did it take?
-- **agent-rules**, did it follow your `CLAUDE.md`?
+- [cantundo](https://github.com/0xelitesystem/cantundo), what irreversible actions did it take?
+- **rulediff**, did it follow your `CLAUDE.md`?
 - [agent-cost](https://github.com/0xelitesystem/agent-cost), where did the tokens and money go?
 
 ## Roadmap
@@ -126,8 +128,8 @@ Rules outside this set still get a generic keyword check, surfaced separately as
 ## Development
 
 ```bash
-git clone https://github.com/0xelitesystem/agent-rules
-cd agent-rules
+git clone https://github.com/0xelitesystem/rulediff
+cd rulediff
 pip install -e .[dev]
 pytest
 ```

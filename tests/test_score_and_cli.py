@@ -4,15 +4,15 @@ from __future__ import annotations
 
 import json
 
-from agent_rules.checker import check_rules
-from agent_rules.cli import check_transcript, main
-from agent_rules.models import (
+from rulediff.checker import check_rules
+from rulediff.cli import check_transcript, main
+from rulediff.models import (
     ComplianceResult, Confidence, Rule, RuleFinding, RuleKind, RuleVerdict,
     Session,
 )
-from agent_rules.parser import parse_transcript
-from agent_rules.rules import parse_rules_file
-from agent_rules.score import score_compliance
+from rulediff.parser import parse_transcript
+from rulediff.rules import parse_rules_file
+from rulediff.score import score_compliance
 
 
 def _result(findings):
@@ -95,7 +95,7 @@ def test_cli_md_report_written(tmp_path, violating_transcript, rules_file):
                "--md", str(md), "--json"])
     assert rc == 0
     text = md.read_text(encoding="utf-8")
-    assert "agent-rules compliance report" in text
+    assert "rulediff compliance report" in text
     assert "VIOLATED" in text
 
 

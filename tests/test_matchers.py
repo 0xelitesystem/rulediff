@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from agent_rules.matchers import (
+from rulediff.matchers import (
     BUILTIN_MATCHERS, find_commit_without_tests, match_rule, output_dir_matcher,
 )
-from agent_rules.models import Event, EventKind, Rule, RuleKind, Session
-from agent_rules.rules import parse_rules_text
+from rulediff.models import Event, EventKind, Rule, RuleKind, Session
+from rulediff.rules import parse_rules_text
 
 
 def _rule(text):

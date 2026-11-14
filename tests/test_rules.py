@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from agent_rules.models import RuleKind
-from agent_rules.rules import parse_rules_text
+from rulediff.models import RuleKind
+from rulediff.rules import parse_rules_text
 
 
 def _by_text(rules, needle):
